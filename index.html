@@ -1,832 +1,450 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0a0d18" />
-
-  <title>Streamer Story | הורדת המשחק</title>
-
-  <meta
-    name="description"
-    content="Streamer Story - מתחילים בקטן, עולים ללייב והופכים לכוכבים. הורידו את המשחק למחשב."
-  />
-
-  <style>
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:Arial,Helvetica,sans-serif;
-
-      background:
-        radial-gradient(circle at 20% 10%,rgba(105,76,255,.22),transparent 28%),
-        radial-gradient(circle at 80% 25%,rgba(0,213,255,.15),transparent 25%),
-        #080b14;
-
-      color:#fff;
-      min-height:100vh;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    .wrap{
-      width:min(1120px,92%);
-      margin:auto;
-    }
-
-    nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:24px 0;
-    }
-
-    .brand{
-      font-weight:900;
-      font-size:1.35rem;
-      letter-spacing:.3px;
-    }
-
-    .brand span{
-      color:#7c6cff;
-    }
-
-    .nav-btn{
-      padding:11px 18px;
-      border:1px solid rgba(255,255,255,.15);
-      border-radius:14px;
-      background:rgba(255,255,255,.05);
-    }
-
-    .hero{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:48px;
-      align-items:center;
-      padding:70px 0 80px;
-    }
-
-    .badge{
-      display:inline-flex;
-      padding:8px 13px;
-      border-radius:999px;
-
-      background:rgba(124,108,255,.14);
-      border:1px solid rgba(124,108,255,.32);
-
-      color:#c6beff;
-      font-weight:700;
-
-      margin-bottom:18px;
-    }
-
-    h1{
-      font-size:clamp(3rem,7vw,6.4rem);
-      line-height:.93;
-      letter-spacing:-3px;
-    }
-
-    h1 span{
-      display:block;
-
-      background:linear-gradient(
-        90deg,
-        #8b7cff,
-        #37d8ff
-      );
-
-      -webkit-background-clip:text;
-      color:transparent;
-    }
-
-    .lead{
-      margin-top:24px;
-
-      color:#b9bed0;
-      line-height:1.75;
-
-      font-size:1.12rem;
-
-      max-width:650px;
-    }
-
-    .actions{
-      display:flex;
-      gap:13px;
-      flex-wrap:wrap;
-      margin-top:30px;
-    }
-
-    .download{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-
-      padding:16px 24px;
-      border-radius:16px;
-
-      font-weight:900;
-
-      background:linear-gradient(
-        135deg,
-        #765cff,
-        #2cc8ff
-      );
-
-      box-shadow:
-        0 15px 40px rgba(80,100,255,.27);
-
-      transition:.2s transform;
-    }
-
-    .download:hover{
-      transform:translateY(-2px);
-    }
-
-    .secondary{
-      padding:16px 21px;
-      border-radius:16px;
-
-      background:#141a2b;
-
-      border:
-        1px solid rgba(255,255,255,.11);
-
-      font-weight:800;
-    }
-
-    .meta{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-
-      margin-top:20px;
-
-      color:#8f97ad;
-
-      font-size:.94rem;
-    }
-
-    .game-card{
-      position:relative;
-
-      min-height:430px;
-
-      border-radius:30px;
-
-      overflow:hidden;
-
-      padding:28px;
-
-      background:
-        linear-gradient(
-          145deg,
-          #1d2450,
-          #111728 52%,
-          #0d3341
-        );
-
-      border:
-        1px solid rgba(255,255,255,.12);
-
-      box-shadow:
-        0 30px 80px rgba(0,0,0,.4);
-    }
-
-    .game-card:before{
-      content:"";
-
-      position:absolute;
-
-      width:260px;
-      height:260px;
-
-      border-radius:50%;
-
-      background:#7866ff;
-
-      filter:blur(80px);
-
-      opacity:.35;
-
-      top:-70px;
-      left:-60px;
-    }
-
-    .screen{
-      position:relative;
-
-      background:#090d16;
-
-      border:1px solid #32384b;
-
-      border-radius:20px;
-
-      padding:18px;
-
-      margin-top:35px;
-
-      transform:
-        perspective(800px)
-        rotateY(-7deg)
-        rotateX(3deg);
-    }
-
-    .screen-top{
-      display:flex;
-      gap:6px;
-      margin-bottom:14px;
-    }
-
-    .dot{
-      width:9px;
-      height:9px;
-
-      border-radius:50%;
-
-      background:#414a61;
-    }
-
-    .stream-box{
-      height:175px;
-
-      border-radius:13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #241c50,
-          #123d4a
-        );
-
-      display:flex;
-
-      align-items:center;
-      justify-content:center;
-
-      font-size:4rem;
-    }
-
-    .stats{
-      display:grid;
-
-      grid-template-columns:
-        repeat(3,1fr);
-
-      gap:9px;
-
-      margin-top:10px;
-    }
-
-    .stat{
-      background:#12182a;
-
-      border-radius:11px;
-
-      padding:12px;
-
-      text-align:center;
-
-      color:#afb7cc;
-
-      font-size:.78rem;
-    }
-
-    .stat strong{
-      display:block;
-
-      color:white;
-
-      font-size:1.05rem;
-
-      margin-bottom:3px;
-    }
-
-    section{
-      padding:75px 0;
-    }
-
-    .section-title{
-      text-align:center;
-
-      font-size:2.1rem;
-
-      margin-bottom:12px;
-    }
-
-    .section-sub{
-      text-align:center;
-
-      color:#969eb4;
-
-      margin-bottom:35px;
-    }
-
-    .features{
-      display:grid;
-
-      grid-template-columns:
-        repeat(3,1fr);
-
-      gap:16px;
-    }
-
-    .feature{
-      background:#101626;
-
-      border:
-        1px solid rgba(255,255,255,.08);
-
-      padding:22px;
-
-      border-radius:20px;
-    }
-
-    .feature .icon{
-      font-size:1.8rem;
-      margin-bottom:13px;
-    }
-
-    .feature h3{
-      margin-bottom:8px;
-    }
-
-    .feature p{
-      color:#969eb4;
-      line-height:1.55;
-    }
-
-    .download-panel{
-      text-align:center;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(118,92,255,.17),
-          rgba(44,200,255,.08)
-        );
-
-      border:
-        1px solid rgba(255,255,255,.1);
-
-      border-radius:28px;
-
-      padding:48px 20px;
-    }
-
-    .download-panel p{
-      color:#a7aec1;
-
-      margin:12px auto 24px;
-
-      max-width:560px;
-
-      line-height:1.6;
-    }
-
-    footer{
-      border-top:
-        1px solid rgba(255,255,255,.07);
-
-      padding:28px 0 40px;
-
-      text-align:center;
-
-      color:#737b91;
-    }
-
-    @media(max-width:800px){
-
-      .hero{
-        grid-template-columns:1fr;
-        padding-top:35px;
-      }
-
-      .game-card{
-        min-height:360px;
-      }
-
-      .features{
-        grid-template-columns:1fr;
-      }
-
-      h1{
-        letter-spacing:-2px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streamer Story | האתר הרשמי</title>
+<meta name="theme-color" content="#080b14">
+
+<style>
+:root {
+  --bg: #080b14;
+  --card: #121829;
+  --text: #ffffff;
+  --muted: #aab3cb;
+  --purple: #806cff;
+  --blue: #35caff;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 10%, #33226960, transparent 35%),
+    radial-gradient(circle at 90% 30%, #005e7c35, transparent 30%),
+    var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: min(1150px, 92%);
+  margin: auto;
+}
+
+header {
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.logo span { color: var(--purple); }
+
+nav { display: flex; gap: 18px; flex-wrap: wrap; }
+
+nav a { color: var(--muted); font-weight: bold; }
+nav a:hover { color: white; }
+
+.hero {
+  min-height: 550px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 35px;
+  padding: 60px 0;
+}
+
+.tag {
+  display: inline-block;
+  color: #c8c0ff;
+  background: #806cff22;
+  border: 1px solid #806cff55;
+  border-radius: 50px;
+  padding: 9px 16px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: clamp(42px, 6vw, 75px);
+  line-height: 1.1;
+  margin: 22px 0;
+}
+
+.gradient {
+  background: linear-gradient(90deg, #947cff, #35caff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.btn {
+  display: inline-block;
+  padding: 16px 25px;
+  border-radius: 15px;
+  font-weight: 900;
+  margin: 12px 0 0 8px;
+  background: linear-gradient(135deg, #765cff, #2cc8ff);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn.secondary {
+  background: #20263b;
+  border: 1px solid #ffffff20;
+}
+
+.hero-image {
+  border-radius: 25px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid #ffffff20;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+}
+
+section { padding: 75px 0; }
+
+.section-title {
+  text-align: center;
+  font-size: clamp(28px, 4vw, 40px);
+  margin: 0 0 12px;
+}
+
+.section-desc {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.features, .gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.feature {
+  background: var(--card);
+  border: 1px solid #ffffff12;
+  border-radius: 22px;
+  padding: 25px;
+}
+
+.feature .emoji { font-size: 32px; }
+.feature h3 { margin: 15px 0 10px; }
+.feature p { color: var(--muted); line-height: 1.7; }
+
+.photo {
+  background: var(--card);
+  border: 1px solid #ffffff20;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+.photo:hover { transform: translateY(-5px); }
+
+.photo img {
+  width: 100%;
+  height: 225px;
+  object-fit: cover;
+  display: block;
+}
+
+.photo h3 {
+  margin: 0;
+  padding: 17px;
+  font-size: 16px;
+}
+
+.download-panel {
+  text-align: center;
+  background: linear-gradient(135deg, #765cff30, #2cc8ff18);
+  border: 1px solid #ffffff20;
+  border-radius: 30px;
+  padding: 55px 25px;
+}
+
+.download-panel p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+footer {
+  border-top: 1px solid #ffffff15;
+  text-align: center;
+  padding: 30px;
+  color: #8892a9;
+}
+
+/* חלון הגדלת תמונות */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: #000000eb;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.lightbox.active { display: flex; }
+
+.lightbox img {
+  max-width: 95%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  background: #ffffff22;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 5px 15px;
+}
+
+@media(max-width: 850px) {
+  .hero { grid-template-columns: 1fr; }
+  .features, .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 550px) {
+  header { flex-direction: column; }
+  nav { justify-content: center; }
+  .features, .gallery { grid-template-columns: 1fr; }
+  .hero-image img { height: 240px; }
+  section { padding: 45px 0; }
+}
+</style>
 </head>
 
 <body>
 
-<div class="wrap">
-
-<nav>
-
-<div class="brand">
-🎮 <span>Streamer</span> Story
-</div>
-
-<a
-class="nav-btn"
-href="#download">
-הורדה
-</a>
-
-</nav>
-
-
-<main class="hero">
-
-<div>
-
-<div class="badge">
-⚡ גרסה V2 זמינה עכשיו
-</div>
-
-<h1>
-התחילו בקטן.
-<span>
-הפכו לוויראליים.
-</span>
-</h1>
-
-<p class="lead">
-
-התחילו כסטרימר קטן עם ציוד בסיסי
-וכמעט בלי כסף.
-
-צאו לעבוד,
-השלימו משימות,
-שדרגו את הסטאפ,
-צברו עוקבים
-ובנו את קריירת הסטרימינג שלכם.
-
-</p>
-
-
-<div class="actions">
-
-<a
-class="download"
-href="https://github.com/sg3r3seg/streamer-story/releases/download/v2.0/Streamer-Story-V2.zip">
-
-⬇ הורד עכשיו למחשב
-
-</a>
-
-
-<a
-class="secondary"
-href="#about">
-
-מה יש במשחק?
-
-</a>
-
-</div>
-
-
-<div class="meta">
-
-<span>
-🖥️ למחשב
-</span>
-
-<span>
-💾 הורדה בקובץ ZIP
-</span>
-
-<span>
-🎮 Streamer Story V2
-</span>
-
-</div>
-
-</div>
-
-
-
-<div
-class="game-card"
-aria-label="Streamer Story preview">
-
-<div style="position:relative;z-index:2">
-
-<div style="font-weight:900;font-size:1.3rem">
-
-STREAMER STORY
-
-</div>
-
-<div style="color:#9ea7bd;margin-top:6px">
-
-FROM ZERO TO VIRAL
-
-</div>
-
-
-<div class="screen">
-
-
-<div class="screen-top">
-
-<div class="dot"></div>
-<div class="dot"></div>
-<div class="dot"></div>
-
-</div>
-
-
-<div class="stream-box">
-
-🎥
-
-</div>
-
-
-<div class="stats">
-
-
-<div class="stat">
-
-<strong>
-1,248
-</strong>
-
-עוקבים
-
-</div>
-
-
-<div class="stat">
-
-<strong>
-₪3,420
-</strong>
-
-כסף
-
-</div>
-
-
-<div class="stat">
-
-<strong>
-LVL 7
-</strong>
-
-רמה
-
-</div>
-
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+<div class="container">
+
+<header>
+  <div class="logo">🎮 <span>Streamer</span> Story</div>
+  <nav>
+    <a href="#home">בית</a>
+    <a href="#about">על המשחק</a>
+    <a href="#photos">תמונות</a>
+    <a href="#download">הורדה</a>
+  </nav>
+</header>
+
+<main class="hero" id="home">
+  <div>
+    <div class="tag">⚡ Streamer Story V2</div>
+
+    <h1>
+      התחילו בקטן.<br>
+      <span class="gradient">הפכו לוויראליים.</span>
+    </h1>
+
+    <p class="description">
+      חלמתם להיות סטרימרים מצליחים?
+      התחילו בחדר קטן עם ציוד בסיסי.
+      צאו לעבוד, הרוויחו כסף, קנו ציוד,
+      השלימו משימות וצברו מיליוני עוקבים!
+    </p>
+
+    <a class="btn" href="#download">⬇ הורדת המשחק</a>
+    <a class="btn secondary" href="#photos">📸 תמונות מהמשחק</a>
+  </div>
+
+  <!-- החלפת התמונה הראשית -->
+  <div class="hero-image">
+    <img src="images/main.jpg"
+         alt="תמונה ראשית מתוך Streamer Story"
+         onerror="this.alt='הוסיפו תמונה בשם main.jpg';">
+  </div>
 </main>
 
 </div>
 
-
-
+<!-- מידע על המשחק -->
 <section id="about">
+<div class="container">
 
-<div class="wrap">
-
-
-<h2 class="section-title">
-
-החיים שלכם.
-הקריירה שלכם.
-
-</h2>
-
-
-<p class="section-sub">
-
-התקדמו מסטרימר מתחיל
-ליוצר תוכן מצליח.
-
+<h2 class="section-title">🎮 מה יש במשחק?</h2>
+<p class="section-desc">
+בנו את קריירת הסטרימינג שלכם מההתחלה.
 </p>
-
 
 <div class="features">
 
+  <div class="feature">
+    <div class="emoji">💻</div>
+    <h3>בניית סטאפ</h3>
+    <p>קנו מחשבים, מסכים, מצלמות, מיקרופונים ותאורה.</p>
+  </div>
 
-<div class="feature">
+  <div class="feature">
+    <div class="emoji">💰</div>
+    <h3>עבודות וכסף</h3>
+    <p>עבדו בעבודות והרוויחו כסף כדי לשדרג את החדר.</p>
+  </div>
 
-<div class="icon">
-💰
-</div>
+  <div class="feature">
+    <div class="emoji">📈</div>
+    <h3>מערכת עוקבים</h3>
+    <p>צברו צפיות, עוקבים, ניסיון ופרסום ברשת.</p>
+  </div>
 
-<h3>
-עבודה וכסף
-</h3>
+  <div class="feature">
+    <div class="emoji">🏙️</div>
+    <h3>עולם פתוח</h3>
+    <p>חקרו את העיר, גלו מקומות חדשים וצאו לפעילויות.</p>
+  </div>
 
-<p>
-צאו מהבית,
-עבדו בעבודות
-והשלימו משימות
-כדי להרוויח כסף.
-</p>
+  <div class="feature">
+    <div class="emoji">🔥</div>
+    <h3>קריירת סטרימינג</h3>
+    <p>התחילו לשדר, צברו קהל והפכו לכוכבי רשת.</p>
+  </div>
 
-</div>
-
-
-
-<div class="feature">
-
-<div class="icon">
-💻
-</div>
-
-<h3>
-שדרוג הסטאפ
-</h3>
-
-<p>
-
-השקיעו במחשב,
-מסכים,
-מצלמות,
-מיקרופון
-וציוד חדש.
-
-</p>
+  <div class="feature">
+    <div class="emoji">🎯</div>
+    <h3>משימות ואתגרים</h3>
+    <p>השלימו משימות, קבלו תגמולים והתקדמו במשחק.</p>
+  </div>
 
 </div>
-
-
-
-<div class="feature">
-
-<div class="icon">
-📈
 </div>
-
-<h3>
-גדלו ברשת
-</h3>
-
-<p>
-
-צברו צפיות,
-עוקבים ו-XP
-ופתחו אפשרויות חדשות
-במהלך המשחק.
-
-</p>
-
-</div>
-
-
-
-<div class="feature">
-
-<div class="icon">
-🏙️
-</div>
-
-<h3>
-צאו לעיר
-</h3>
-
-<p>
-
-חקרו מקומות,
-עבודות
-ופעילויות
-מחוץ לבית.
-
-</p>
-
-</div>
-
-
-
-<div class="feature">
-
-<div class="icon">
-🔥
-</div>
-
-<h3>
-הפכו לוויראליים
-</h3>
-
-<p>
-
-צרו תוכן,
-התקדמו
-ובנו לעצמכם
-אימפריית סטרימינג.
-
-</p>
-
-</div>
-
-
-
-<div class="feature">
-
-<div class="icon">
-🎯
-</div>
-
-<h3>
-משימות
-</h3>
-
-<p>
-
-השלימו מטרות
-ואתגרים
-וקבלו תגמולים
-שיקדמו אתכם.
-
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
 </section>
 
+<!-- גלריית תמונות -->
+<section id="photos">
+<div class="container">
 
+<h2 class="section-title">📸 הצצה לתוך המשחק</h2>
+<p class="section-desc">
+צפו בתמונות מתוך Streamer Story.
+לחצו על תמונה כדי להגדיל אותה.
+</p>
 
+<div class="gallery">
+
+  <div class="photo" onclick="openPhoto('images/photo1.jpg')">
+    <img src="images/photo1.jpg" alt="חדר הסטרימינג">
+    <h3>🖥️ חדר הסטרימינג</h3>
+  </div>
+
+  <div class="photo" onclick="openPhoto('images/photo2.jpg')">
+    <img src="images/photo2.jpg" alt="בניית הסטאפ">
+    <h3>💻 בניית הסטאפ</h3>
+  </div>
+
+  <div class="photo" onclick="openPhoto('images/photo3.jpg')">
+    <img src="images/photo3.jpg" alt="עולם המשחק">
+    <h3>🏙️ עולם המשחק</h3>
+  </div>
+
+  <div class="photo" onclick="openPhoto('images/photo4.jpg')">
+    <img src="images/photo4.jpg" alt="מערכת המשימות">
+    <h3>🎯 מערכת המשימות</h3>
+  </div>
+
+  <div class="photo" onclick="openPhoto('images/photo5.jpg')">
+    <img src="images/photo5.jpg" alt="שדרוג הציוד">
+    <h3>🎮 שדרוג הציוד</h3>
+  </div>
+
+  <div class="photo" onclick="openPhoto('images/photo6.jpg')">
+    <img src="images/photo6.jpg" alt="התקדמות במשחק">
+    <h3>🚀 התקדמות במשחק</h3>
+  </div>
+
+</div>
+</div>
+</section>
+
+<!-- הורדת המשחק -->
 <section id="download">
-
-<div class="wrap">
-
+<div class="container">
 
 <div class="download-panel">
+  <h2>🚀 מוכנים להתחיל את הסיפור שלכם?</h2>
+  <p>
+    הורידו את Streamer Story V2 למחשב,
+    חלצו את הקובץ והתחילו לשחק.
+  </p>
 
+  <a class="btn"
+     href="https://github.com/sg3r3seg/streamer-story/releases/download/v2.0/Streamer-Story-V2.zip">
+    ⬇ הורדת Streamer Story V2
+  </a>
 
-<h2>
-
-מוכנים להתחיל את הסיפור?
-
-</h2>
-
-
-<p>
-
-הורידו את
-Streamer Story V2,
-חלצו את קובץ ה-ZIP
-והתחילו לשחק.
-
-</p>
-
-
-<a
-class="download"
-href="https://github.com/sg3r3seg/streamer-story/releases/download/v2.0/Streamer-Story-V2.zip">
-
-⬇ הורדת Streamer Story V2
-
-</a>
-
-
+  <p>🖥️ מחשב | 🎮 גרסה V2 | 📦 הורדה בקובץ ZIP</p>
 </div>
 
 </div>
-
 </section>
 
-
-
 <footer>
-
-<div class="wrap">
-
-© 2026 Streamer Story
-• כל הזכויות שמורות
-
-</div>
-
+  © 2026 Streamer Story | כל הזכויות שמורות
 </footer>
 
+<!-- תצוגה מוגדלת -->
+<div class="lightbox" id="lightbox" onclick="closePhoto()">
+  <button class="close" onclick="closePhoto()">×</button>
+  <img id="bigPhoto" alt="תמונה מוגדלת מהמשחק">
+</div>
+
+<script>
+function openPhoto(src) {
+  const box = document.getElementById('lightbox');
+  const img = document.getElementById('bigPhoto');
+  img.src = src;
+  box.classList.add('active');
+}
+
+function closePhoto() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePhoto();
+});
+</script>
 
 </body>
 </html>
